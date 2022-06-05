@@ -15,7 +15,7 @@ object CheckCloning {
         onAppNotCloned: () -> Unit // what to do when the app is genuine cloned
     ) {
         val path: String = context.filesDir?.path ?: ""
-        Log.d("path", "$path")
+        Log.d("path", path)
         if (path.contains("999")) {
             onAppCloned()
         } else {
@@ -29,16 +29,10 @@ object CheckCloning {
     }
 
     private fun getDotCount(path: String): Int {
-        var count = 0
-        for (element in path) {
-            if (count > packageDotsNumbers) {
-                break
-            }
-            if (element == '.') {
-                count++
-            }
-        }
-        return count
+        val delimiter = "."
+        val length = path.split(delimiter).size
+
+        return length - 1
     }
 
     // This function closes the app
